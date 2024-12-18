@@ -1,0 +1,19 @@
+spring:
+  thymeleaf:
+    cache: false
+
+  datasource:
+    url: jdbc:postgresql://localhost:5431/security
+    username: postgres
+    password: 1111
+
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+        jdbc:
+          lab:
+            non_contextual_creation: true

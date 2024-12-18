@@ -1,0 +1,36 @@
+package chocola.security.authentication.domain.entity;
+
+import jakarta.persistence.*;
+import lombok.*;
+
+import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
+
+@Entity
+@Table
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+@Builder
+public class RoleHierarchy implements Serializable {
+
+    @Id
+    @GeneratedValue
+    private Long id;
+
+    private String roleName;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "parent_id", referencedColumnName = "id", insertable = false, updatable = false)
+    private RoleHierarchy parent;
+
+    @OneToMany(mappedBy = "parent", fetch = FetchType.LAZY)
+    private Set<RoleHierarchy> children = new HashSet<>();
+
+    @Override
+    public String toString() {
+        return parent.roleName + " > " + this.roleName;
+    }
+}
